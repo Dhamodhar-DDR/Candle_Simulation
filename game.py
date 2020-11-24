@@ -1,36 +1,66 @@
 
-# import pygame module in this program  
+# import pygame module tin this program  
 import pygame 
-  
+import math
+
 # activate the pygame library .   
 # initiate pygame and give permission   
 # to use pygame's functionality.   
 pygame.init() 
+
   
 # create the display surface object   
 # of specific dimension..e(500, 500).   
-win = pygame.display.set_mode((1900, 950)) 
+win = pygame.display.set_mode((1900, 1050)) 
   
 # set the pygame window name  
 pygame.display.set_caption("Moving rectangle") 
 
-x = 200
+white = (255, 255, 255) 
+green = (0, 255, 0) 
+blue = (0, 0, 128) 
+
+font = pygame.font.Font('freesansbold.ttf', 32) 
+text = font.render(str(0), True, green, blue) 
+
+text2 = font.render(str(1), True, green, blue) 
+# create a text suface object, 
+# on which text is drawn on it. 
+  
+# create a rectangular object for the 
+# text surface object 
+textRect = text.get_rect()  
+textRect.center = (400 // 2, 400 // 2) 
+
+textRect2 = text2.get_rect()  
+textRect2.center = (400 // 2, 200 // 2) 
+
+timefactor =1
+
+x = 600
 y = 200
-width = 400
-height = 350
+width = 700
+height = 1050
 run = True
 wellwidth = 0
-wellheight = 0
+wellheight = 105
 moltenheight = 0
+time = 0
 
+l = 2.2
+d = 0.229
 # infinite loop  
 while run: 
-    pygame.time.delay(40) 
+    pygame.time.delay(10) 
       
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT: 
-            run = False         
-              
+            run = False
+        if event.type == pygame.KEYDOWN:
+            if (event.key == pygame.K_UP):
+                timefactor += 5
+            elif (event.key == pygame.K_DOWN) and timefactor > 6:
+                timefactor += -5
     win.fill((0, 0, 0))
 
     pygame.draw.rect(win, (255, 100, 0), (x, y, width, height))   
@@ -38,12 +68,19 @@ while run:
     pygame.draw.rect(win, (150, 100, 0), (x + width/2 - (wellwidth/2), y+wellheight-moltenheight, wellwidth, moltenheight))   
     
     if(wellheight<100):
-        wellheight +=2
-    if(wellwidth<100):
-        wellwidth +=1
+        wellheight += 2
+    wellwidth = 200*(2.2 - (pow((2.2 - 0.29),(1-(time/3000))))*(pow((2.2 -2),(time/3000)))) 
+    print(wellwidth)
     if(moltenheight<50):
         moltenheight += 1
 
+    text = font.render(str(time), True, green, blue)
+    text2 = font.render(str(timefactor), True, green, blue) 
+
+    time+=(0.01*timefactor)
+    print(timefactor)
+    win.blit(text, textRect) 
+    win.blit(text2, textRect2) 
     pygame.display.update()  
   
 # closes the pygame window  
