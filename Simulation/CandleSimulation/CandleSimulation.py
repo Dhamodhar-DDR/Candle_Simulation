@@ -1,16 +1,8 @@
-
-# import pygame module tin this program  
 import pygame 
 import math
 
-# activate the pygame library .   
-# initiate pygame and give permission   
-# to use pygame's functionality.   
 pygame.init() 
 
-  
-# create the display surface object   
-# of specific dimension..e(500, 500).   
 win = pygame.display.set_mode((1900, 1050)) 
   
 # set the pygame window name  
@@ -24,11 +16,7 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 text = font.render(str(0), True, green, blue) 
 
 text2 = font.render(str(1), True, green, blue) 
-# create a text suface object, 
-# on which text is drawn on it. 
-  
-# create a rectangular object for the 
-# text surface object 
+
 textRect = text.get_rect()  
 textRect.center = (400 // 2, 400 // 2) 
 
@@ -49,7 +37,9 @@ time = 0
 
 l = 2.2
 d = 0.229
-# infinite loop  
+
+def play():
+  # infinite loop  
 while run: 
     pygame.time.delay(10) 
       
@@ -89,6 +79,8 @@ while run:
     win.blit(text, textRect) 
     win.blit(text2, textRect2) 
     pygame.display.update()  
-  
+
+play()
+
 # closes the pygame window  
 pygame.quit() 
